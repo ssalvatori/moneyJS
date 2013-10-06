@@ -1,0 +1,12 @@
+{
+  "repository": "https://github.com/ssalvatori/moneyJS.git",
+  "name": "moneyJS",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app"
+  },
+  "dependencies": {
+    "express": "3.x"
+  }
+}
