@@ -5,8 +5,8 @@ var app = express();
 mongoose.connect(process.env.MONGO_DEV_URI);
 
 /* API MODULES */
-var actionsAPI = require('./modules/actions');
-var usersAPI = require('./modules/users');
+var actionsAPI = require('./api/actions');
+var usersAPI = require('./api/users');
 
 app.configure(function () {
   app.use(express.bodyParser());
