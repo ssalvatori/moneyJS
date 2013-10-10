@@ -1,22 +1,23 @@
+var mongoose = require('mongoose');
 var express = require('express');
 var app = express();
-var actions = require('./modules/actions');
-var user = require('./modules/user');
 
-/* error midleware */
-app.use(function(err, req, res, next) {
-  //do logging and user-friendly error message display
-  console.log("---");
-  console.log("request: "+req);
-  console.log("response: "+res);
-  console.log("---");
-  console.log("ERROR: "+err);
-  res.send(500, {status:500, message: 'internal error', type:'internal'});
+mongoose.connect(process.env.MONGO_DEV_URI);
+
+/* API MODULES */
+var actionsAPI = require('./modules/actions');
+var usersAPI = require('./modules/users');
+
+app.configure(function () {
+  app.use(express.bodyParser());
+  app.use(express.methodOverride());
+  app.use(app.router);
+  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
 /* actions */
-app.get('/actions/:apikey/find/all', user.authenticate, actions.find);
-app.get('/actions/:apikey/find/:id', user.authenticate, actions.findById);
+app.get('/actions/:username/:apikey/find', usersAPI.authenticate, actionsAPI.find);
+
 
 app.listen(8080);
 console.log('Express app started on port 8080');

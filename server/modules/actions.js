@@ -1,21 +1,13 @@
-var actions = [
-  {id: 1, name: "action one"},
-  {id: 2, name: "action two"}
-];
+/* load model*/
+var ActionModel = require('../models/action.js');
 
-exports.find = function(req, res, next){
-  res.json(actions);
-};
-
-exports.findById = function(req, res, next){
-  var found = 0;
-  actions.forEach(function(action) {
-    if(action.id == req.params.id) { 
-      res.json(action);
-      found++;
+exports.find = function(req, res){
+  
+  ActionModel.find(function(error, actions) {
+    if(error) {
+      next(new Error("error")); 
     }
+    res.json(actions);
   });
-  if(found == 0) {
-    next(new Error("not found action with id "+req.params.id));
-  } 
+  
 };
