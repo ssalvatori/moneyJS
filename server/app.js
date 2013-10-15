@@ -17,6 +17,10 @@ app.configure(function () {
 
 /* actions */
 app.get('/actions/:username/:apikey/find', usersAPI.authenticate, actionsAPI.find);
+app.get('/actions/:username/:apikey/findById', usersAPI.authenticate, actionsAPI.findById);
+app.get('/actions/:username/:apikey/findByDate', usersAPI.authenticate, actionsAPI.findByDate);
+app.get('/actions/:username/:apikey/findByType', usersAPI.authenticate, actionsAPI.findByType);
+app.post('/actions/:username/:apikey/create', usersAPI.authenticate, actionsAPI.create);
 
 
 app.listen(8080);
